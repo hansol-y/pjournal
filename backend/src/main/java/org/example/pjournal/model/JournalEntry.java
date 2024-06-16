@@ -1,9 +1,7 @@
 package org.example.pjournal.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
@@ -12,17 +10,23 @@ public class JournalEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", updatable = false, nullable = false)
     private Long id;
 
+    @Column(name="title", nullable = false)
     private String title;
+    @Column(name="contents", nullable = false)
     private String contents;
+    @Column(name="image", nullable = false)
     private String imageUri;
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
     protected JournalEntry() {
         this.createdAt = LocalDateTime.now();
     }
 
+    @Builder
     public JournalEntry(String title, String contents, String imageUri) {
         this.title = title;
         this.contents = contents;
@@ -60,6 +64,7 @@ public class JournalEntry {
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
+        // TEST PURPOSE ONLY
         this.createdAt = createdAt;
     }
 

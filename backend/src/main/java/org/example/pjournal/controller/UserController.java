@@ -1,11 +1,9 @@
 package org.example.pjournal.controller;
 
 import org.example.pjournal.model.User;
+import org.example.pjournal.dto.UserDTO;
 import org.example.pjournal.service.UserService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,19 +12,22 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/user")
-    public Optional<User> getUserById(Long Id) {
+    public Optional<UserDTO> getUserById(Long Id) {
         return userService.getUserById(Id);
     }
 
     @PostMapping("/user")
-    public User createUser() {
-        // TODO
-        return null;
+    public UserDTO createUser(
+            @RequestBody String userId,
+            @RequestBody String password,
+            @RequestBody String userName
+            ) {
+        return userService.createUser(userId, password, userName);
     }
 
     @DeleteMapping("/user")
@@ -34,7 +35,7 @@ public class UserController {
         // TODO
     }
 
-    @PutMapping("/user/")
+    @PutMapping("/user")
     public void updateUserData() {
         // TODO
     }
